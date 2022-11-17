@@ -6,6 +6,8 @@ This repo has a server side (the kernel module that is built and inserted into a
 To set up:
 Linux (server) side:
 '''
-clone 
+user@yourbox:~/dir$ git clone https://github.com/benjaminkravets/ICMP-RAT.git
+user@yourbox:~/dir$ cd /ICMP-RAT/server
+user@yourbox:~/dir/ICMP-RAT/server$ make 
 '''
 
