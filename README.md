@@ -7,7 +7,7 @@ To set up:
 Linux (server) side:
 ```
 user@yourbox:~/dir$ git clone https://github.com/benjaminkravets/ICMP-RAT.git
-user@yourbox:~/dir$ cd /ICMP-RAT/server
-user@yourbox:~/dir/ICMP-RAT/server$ make 
+user@yourbox:~/dir$ cd /ICMP-RAT/servermodule
+user@yourbox:~/dir/ICMP-RAT/servermodule$ make 
 ```
 
