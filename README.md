@@ -10,4 +10,9 @@ user@yourbox:~/dir$ git clone https://github.com/benjaminkravets/ICMP-RAT.git
 user@yourbox:~/dir$ cd /ICMP-RAT/servermodule
 user@yourbox:~/dir/ICMP-RAT/servermodule$ make 
 ```
-
+Scapy Python3 (client) side:
+```
+user@yourbox:~/dir$ git clone https://github.com/benjaminkravets/ICMP-RAT.git
+user@yourbox:~/dir$ cd /ICMP-RAT/clientscript
+user@yourbox:~/dir/ICMP-RAT/clientscript$ sudo python3 goober.py -i 10.0.2.14 -c "touch /home/user/Desktop/hello" -t 2
+```
