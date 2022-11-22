@@ -16,3 +16,7 @@ user@yourbox:~/dir$ git clone https://github.com/benjaminkravets/ICMP-RAT.git
 user@yourbox:~/dir$ cd /ICMP-RAT/clientscript
 user@yourbox:~/dir/ICMP-RAT/clientscript$ sudo python3 goober.py -i 10.0.2.14 -c "touch /home/user/Desktop/hello" -t 2
 ```
+
+
+
+This tool does not currently support a command line output return to the sender, all commands are sent blind with no return. 
