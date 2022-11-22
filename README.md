@@ -30,3 +30,5 @@ user@yourbox:~/dir/ICMP-RAT/clientscript$ sudo python3 goober.py -i 10.0.2.14 -c
 
 
 This tool does not currently support a command line output return to the sender, all commands are sent blind with no return. 
+
+Not tested and still in progress.
