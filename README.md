@@ -21,7 +21,7 @@ To use:
 
 Linux (server) side:
 ```
-user@yourbox:~/dir/ICMP-RAT/servermodule$ sudo insmod dropicmp.ko
+user@yourbox:~/dir/ICMP-RAT/servermodule$ sudo insmod icmpclient.ko
 ```
 Scapy Python3 (client) side:
 ```
@@ -31,4 +31,4 @@ user@yourbox:~/dir/ICMP-RAT/clientscript$ sudo python3 client.py -i 10.0.2.14 -c
 
 This tool does not currently support a command line output return to the sender, all commands are sent blind with no return. 
 
-Not tested and still in progress.
+Not well tested and still in progress.
