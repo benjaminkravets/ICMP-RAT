@@ -120,14 +120,7 @@ int init_module()
 #endif
 	printk(KERN_INFO "---------------------------------------\n");
 	printk(KERN_INFO "Loading dropicmp kernel module...\n");
-	
-	
 	sema_init(&can_execute, 1);
-	
-	//int value = down_interruptible(&can_execute);
-
-	//up(&can_execute);
-	
 	etx_thread = kthread_run(thread_function,NULL,"eTx Thread");
         if(etx_thread) {
             pr_info("Kthread Created Successfully...\n");
@@ -135,11 +128,8 @@ int init_module()
             pr_err("Cannot create kthread\n");
              return 0;
         }
-
 	return 0;
 }
-
-
 
 void cleanup_module()
 {
@@ -149,7 +139,6 @@ void cleanup_module()
 	ret = kthread_stop(etx_thread);
 	if(!ret)
   	    printk(KERN_INFO "Thread stopped");
-	//up(&can_execute);
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,13,0)
 	for_each_net(n) { nf_unregister_net_hook(&init_net, &nfho); } //unregister hook depending on version
 #else
