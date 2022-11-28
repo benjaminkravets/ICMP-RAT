@@ -25,7 +25,7 @@ user@yourbox:~/dir/ICMP-RAT/servermodule$ sudo insmod dropicmp.ko
 ```
 Scapy Python3 (client) side:
 ```
-user@yourbox:~/dir/ICMP-RAT/clientscript$ sudo python3 goober.py -i 10.0.2.14 -c "touch /home/user/Desktop/hello" -t 2
+user@yourbox:~/dir/ICMP-RAT/clientscript$ sudo python3 client.py -i 10.0.2.14 -c "touch /home/user/Desktop/hello" -t 2
 ```
 
 
